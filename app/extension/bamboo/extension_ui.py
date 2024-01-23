@@ -30,11 +30,13 @@ def app_specific_action(webdriver, datasets):
     #     app_specific_user_login(username='admin', password='admin')
     # measure()
 
-    @print_timing("selenium_app_specific_view_summary_page")
+    @print_timing("selenium_app_specific")
     def measure():
-        build_summary = BuildSummary(webdriver, build_plan_id=datasets['build_plan_id'])
-        build_summary.go_to_build_summary_page()
-        build_summary.wait_for_page_loaded()
-        build_summary.wait_until_visible((By.CLASS_NAME, "clm-scan"))
+        build_summary_result = BuildSummary(webdriver, build_plan_id=datasets['build_plan_id'])
+        if build_summary_result is not None:
+            build_summary_result.go_to_build_summary_page()
+            build_summary_result.wait_for_page_loaded()
+            build_summary_result.wait_until_visible((By.CLASS_NAME, "clm-scan"))
+
     measure()
 
